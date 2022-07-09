@@ -1,0 +1,39 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  """ID of user"""
+  _id: ID!
+  firstName: String!
+  lastName: String!
+  password: String!
+  email: String!
+}
+
+type Jwt {
+  jwt: String!
+}
+
+type Query {
+  getUserById(id: String!): User!
+  verify: User!
+}
+
+type Mutation {
+  register(createUserInput: CreateUserInput!): User!
+  login(loginInput: LoginInput!): Jwt!
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  password: String!
+  email: String!
+  favouriteArtistIds: [String!]!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
