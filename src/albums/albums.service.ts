@@ -49,8 +49,22 @@ export class AlbumsService {
     }
   }
 
-  update(id: number, updateAlbumInput: UpdateAlbumInput) {
-    return `This action updates a #${id} album`;
+  async update(id: string, updateAlbumInput: UpdateAlbumInput, token: string) {
+    try {
+      const res = await this.client.put(
+        `${id}`,
+        { ...updateAlbumInput },
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        },
+      );
+      console.log(res.data);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   remove(id: number) {

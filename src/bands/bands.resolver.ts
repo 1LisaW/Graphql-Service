@@ -28,10 +28,16 @@ export class BandsResolver {
     return this.bandsService.findOne(id);
   }
 
-  // @Mutation(() => Band)
-  // updateBand(@Args('updateBandInput') updateBandInput: UpdateBandInput) {
-  //   return this.bandsService.update(updateBandInput.id, updateBandInput);
-  // }
+  @Mutation(() => Band)
+  updateBand(
+    @Args('id', { type: () => String }) id: string,
+    @Args('updateBandInput')
+    updateBandInput: UpdateBandInput,
+    @Context()
+    context: ContextType & { token: string },
+  ) {
+    return this.bandsService.update(id, updateBandInput, context.token);
+  }
 
   @Mutation(() => Band)
   removeBand(@Args('id', { type: () => Int }) id: number) {

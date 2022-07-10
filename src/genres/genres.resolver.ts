@@ -28,10 +28,15 @@ export class GenresResolver {
     return this.genresService.findOne(id);
   }
 
-  // @Mutation(() => Genre)
-  // updateGenre(@Args('updateGenreInput') updateGenreInput: UpdateGenreInput) {
-  //   return this.genresService.update(updateGenreInput._id, updateGenreInput);
-  // }
+  @Mutation(() => Genre)
+  updateGenre(
+    @Args('id', { type: () => String }) id: string,
+    @Args('updateGenreInput') updateGenreInput: UpdateGenreInput,
+    @Context()
+    context: ContextType & { token: string },
+  ) {
+    return this.genresService.update(id, updateGenreInput, context.token);
+  }
 
   @Mutation(() => Genre)
   removeGenre(@Args('id', { type: () => String }) id: string) {

@@ -49,8 +49,18 @@ export class GenresService {
     }
   }
 
-  update(id: string, updateGenreInput: UpdateGenreInput) {
-    return `This action updates a #${id} genre`;
+  async update(id: string, updateGenreInput: UpdateGenreInput, token) {
+    try {
+      const res = await this.client.put(`/${id}`, updateGenreInput, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      console.log(res.data);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   remove(id: string) {

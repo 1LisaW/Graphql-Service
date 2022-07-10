@@ -46,8 +46,18 @@ export class BandsService {
     }
   }
 
-  update(id: number, updateBandInput: UpdateBandInput) {
-    return `This action updates a #${id} band`;
+  async update(id: string, updateBandInput: UpdateBandInput, token) {
+    try {
+      const res = await this.client.put(`${id}`, updateBandInput, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      console.log(res.data);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   remove(id: number) {

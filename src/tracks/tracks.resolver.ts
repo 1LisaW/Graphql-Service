@@ -28,10 +28,15 @@ export class TracksResolver {
     return this.tracksService.findOne(id);
   }
 
-  // @Mutation(() => Track)
-  // updateTrack(@Args('updateTrackInput') updateTrackInput: UpdateTrackInput) {
-  //   return this.tracksService.update(updateTrackInput.id, updateTrackInput);
-  // }
+  @Mutation(() => Track)
+  updateTrack(
+    @Args('id', { type: () => String }) id: string,
+    @Args('updateTrackInput') updateTrackInput: UpdateTrackInput,
+    @Context()
+    context: ContextType & { token: string },
+  ) {
+    return this.tracksService.update(id, updateTrackInput, context.token);
+  }
 
   @Mutation(() => Track)
   removeTrack(@Args('id', { type: () => Int }) id: number) {

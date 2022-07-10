@@ -104,12 +104,16 @@ type Mutation {
   updateArtist(id: String!, updateArtistInput: UpdateArtistInput!): Artist!
   removeArtist(id: String!): Artist!
   createTrack(createTrackInput: CreateTrackInput!): Track!
+  updateTrack(id: String!, updateTrackInput: UpdateTrackInput!): Track!
   removeTrack(id: Int!): Track!
   createGenre(createGenreInput: CreateGenreInput!): Genre!
+  updateGenre(id: String!, updateGenreInput: UpdateGenreInput!): Genre!
   removeGenre(id: String!): Genre!
   createBand(createBandInput: CreateBandInput!): Band!
+  updateBand(id: String!, updateBandInput: UpdateBandInput!): Band!
   removeBand(id: Int!): Band!
   createAlbum(createAlbumInput: CreateAlbumInput!): Album!
+  updateAlbum(id: String!, updateAlbumInput: UpdateAlbumInput!): Album!
   removeAlbum(id: Int!): Album!
   createFavourite(createFavouriteInput: CreateFavouriteInput!): Favourite!
   removeFavourite(id: Int!): Favourite!
@@ -160,8 +164,25 @@ input CreateTrackInput {
   genresIds: [String]
 }
 
+input UpdateTrackInput {
+  title: String
+  albumId: String
+  bandsIds: [String]
+  artistsIds: [String]
+  duration: Int
+  released: Int
+  genresIds: [String]
+}
+
 input CreateGenreInput {
   name: String!
+  description: String
+  country: String
+  year: Int
+}
+
+input UpdateGenreInput {
+  name: String
   description: String
   country: String
   year: Int
@@ -181,8 +202,25 @@ input MembersInput {
   years: [String]
 }
 
+input UpdateBandInput {
+  name: String
+  origin: String
+  members: [MembersInput]
+  website: String
+  genresIds: [String!]
+}
+
 input CreateAlbumInput {
   name: String!
+  released: Int
+  artistsIds: [String]
+  bandsIds: [String]
+  trackIds: [String]
+  genresIds: [String]
+}
+
+input UpdateAlbumInput {
+  name: String
   released: Int
   artistsIds: [String]
   bandsIds: [String]

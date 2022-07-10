@@ -48,8 +48,17 @@ export class TracksService {
     }
   }
 
-  update(id: number, updateTrackInput: UpdateTrackInput) {
-    return `This action updates a #${id} track`;
+  async update(id: string, updateTrackInput: UpdateTrackInput, token: string) {
+    try {
+      const res = await this.client.put(`/${id}`, updateTrackInput, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   remove(id: number) {

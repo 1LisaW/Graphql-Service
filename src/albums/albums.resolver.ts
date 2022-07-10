@@ -27,10 +27,14 @@ export class AlbumsResolver {
     return this.albumsService.findOne(id);
   }
 
-  // @Mutation(() => Album)
-  // updateAlbum(@Args('updateAlbumInput') updateAlbumInput: UpdateAlbumInput) {
-  //   return this.albumsService.update(updateAlbumInput.id, updateAlbumInput);
-  // }
+  @Mutation(() => Album)
+  updateAlbum(
+    @Args('id', { type: () => String }) id: string,
+    @Args('updateAlbumInput') updateAlbumInput: UpdateAlbumInput,
+    @Context() context: ContextType & { token: string },
+  ) {
+    return this.albumsService.update(id, updateAlbumInput, context.token);
+  }
 
   @Mutation(() => Album)
   removeAlbum(@Args('id', { type: () => Int }) id: number) {
