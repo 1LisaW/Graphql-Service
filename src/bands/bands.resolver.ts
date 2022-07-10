@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import { BandsService } from './bands.service';
 import { Band } from './entities/band.entity';
 import { CreateBandInput } from './dto/create-band.input';
