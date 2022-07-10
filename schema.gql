@@ -145,7 +145,10 @@ type Mutation {
   createAlbum(createAlbumInput: CreateAlbumInput!): Album!
   updateAlbum(id: String!, updateAlbumInput: UpdateAlbumInput!): Album!
   removeAlbum(id: String!): RemoveAlbum!
-  createFavourite(createFavouriteInput: CreateFavouriteInput!): Favourite!
+  addTrackToFavourites(createFavouriteInput: CreateFavouriteInput!): Favourite!
+  addBandToFavourites(createFavouriteInput: CreateFavouriteInput!): Favourite!
+  addArtistToFavourites(createFavouriteInput: CreateFavouriteInput!): Favourite!
+  addGenreToFavourites(createFavouriteInput: CreateFavouriteInput!): Favourite!
   removeFavourite(id: String!): RemoveFavourite!
 }
 
@@ -259,6 +262,5 @@ input UpdateAlbumInput {
 }
 
 input CreateFavouriteInput {
-  type: String
   id: String
 }

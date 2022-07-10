@@ -15,15 +15,20 @@ export class FavouritesService {
     });
   }
   async create(
+    type: 'tracks' | 'bands' | 'genres' | 'artists',
     createFavouriteInput: CreateFavouriteInput,
     token: string,
   ): Promise<Favourite> {
     try {
-      const res = await this.client.put('/add', createFavouriteInput, {
-        headers: {
-          authorization: token,
+      const res = await this.client.put(
+        '/add',
+        { type, ...createFavouriteInput },
+        {
+          headers: {
+            authorization: token,
+          },
         },
-      });
+      );
       console.log(res.data);
       return res.data;
     } catch (err) {
@@ -44,10 +49,6 @@ export class FavouritesService {
       console.log(err);
     }
   }
-
-  // update(id: number, removeFromFavouriteInput: RemoveFromFavouriteInput) {
-  //   return `This action updates a #${id} favourite`;
-  // }
 
   async remove(id: string, token): Promise<RemoveFavourite> {
     try {

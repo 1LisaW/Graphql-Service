@@ -5,7 +5,40 @@
 mutation createFavourite
 
 mutation($createFavouriteInput: CreateFavouriteInput!){
-  createFavourite(createFavouriteInput:$createFavouriteInput){
+  addBandToFavourites(createFavouriteInput:$createFavouriteInput){
+    artistsIds
+    bandsIds
+    genresIds
+    artistsIds
+    tracksIds
+    _id
+  }
+}
+
+mutation($createFavouriteInput: CreateFavouriteInput!){
+  addTrackToFavourites(createFavouriteInput:$createFavouriteInput){
+    artistsIds
+    bandsIds
+    genresIds
+    artistsIds
+    tracksIds
+    _id
+  }
+}
+
+mutation($createFavouriteInput: CreateFavouriteInput!){
+  addGenreToFavourites(createFavouriteInput:$createFavouriteInput){
+    artistsIds
+    bandsIds
+    genresIds
+    artistsIds
+    tracksIds
+    _id
+  }
+}
+
+mutation($createFavouriteInput: CreateFavouriteInput!){
+  addArtistToFavourites(createFavouriteInput:$createFavouriteInput){
     artistsIds
     bandsIds
     genresIds
@@ -18,7 +51,6 @@ mutation($createFavouriteInput: CreateFavouriteInput!){
 QUERY VARIABLES:
 
 { "createFavouriteInput":{
-  "type": "artists",
   "id": "62c9ae79f51eeab1327a18cf"
 
 } }

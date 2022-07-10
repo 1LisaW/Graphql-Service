@@ -11,13 +11,65 @@ export class FavouritesResolver {
   constructor(private readonly favouritesService: FavouritesService) {}
 
   @Mutation(() => Favourite)
-  createFavourite(
-    @Args('createFavouriteInput') createFavouriteInput: CreateFavouriteInput,
+  addTrackToFavourites(
+    @Args('createFavouriteInput') createFavouriteInput: CreateFavouriteInput, // id
     @Context()
     context: ContextType & { token: string },
   ) {
-    return this.favouritesService.create(createFavouriteInput, context.token);
+    return this.favouritesService.create(
+      'tracks',
+      createFavouriteInput,
+      context.token,
+    );
   }
+
+  @Mutation(() => Favourite)
+  addBandToFavourites(
+    @Args('createFavouriteInput') createFavouriteInput: CreateFavouriteInput, // id
+    @Context()
+    context: ContextType & { token: string },
+  ) {
+    return this.favouritesService.create(
+      'bands',
+      createFavouriteInput,
+      context.token,
+    );
+  }
+
+  @Mutation(() => Favourite)
+  addArtistToFavourites(
+    @Args('createFavouriteInput') createFavouriteInput: CreateFavouriteInput, // id
+    @Context()
+    context: ContextType & { token: string },
+  ) {
+    return this.favouritesService.create(
+      'artists',
+      createFavouriteInput,
+      context.token,
+    );
+  }
+
+  @Mutation(() => Favourite)
+  addGenreToFavourites(
+    @Args('createFavouriteInput') createFavouriteInput: CreateFavouriteInput, // id
+    @Context()
+    context: ContextType & { token: string },
+  ) {
+    return this.favouritesService.create(
+      'genres',
+      createFavouriteInput,
+      context.token,
+    );
+  }
+
+  // @Mutation(() => Favourite)
+  // createFavourite(
+  //   @Args('createFavouriteInput') createFavouriteInput: CreateFavouriteInput,
+  //   @Context()
+  //   context: ContextType & { token: string },
+  // ) {
+  //   return this.favouritesService.create(createFavouriteInput, context.token);
+  // }
 
   @Query(() => Favourite, { name: 'favourites' })
   findOne(
@@ -26,17 +78,6 @@ export class FavouritesResolver {
   ) {
     return this.favouritesService.findOne(context.token);
   }
-
-  // @Mutation(() => Favourite)
-  // updateFavourite(
-  //   @Args('removeFromFavouriteInput')
-  //   removeFromFavouriteInput: RemoveFromFavouriteInput,
-  // ) {
-  //   return this.favouritesService.update(
-  //     removeFromFavouriteInput.id,
-  //     removeFromFavouriteInput,
-  //   );
-  // }
 
   @Mutation(() => RemoveFavourite)
   removeFavourite(
