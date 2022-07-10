@@ -15,53 +15,6 @@ type Jwt {
   jwt: String!
 }
 
-type Artist {
-  """ID of Artist"""
-  _id: ID!
-  firstName: String!
-  secondName: String!
-  middleName: String
-  birthDate: String
-  birthPlace: String
-  country: String!
-  bandsIds: [String]
-  instruments: [String]
-}
-
-type RemoveArtist {
-  acknowledged: String!
-  deletedCount: Int!
-}
-
-type Track {
-  _id: String!
-  title: String!
-  albumId: String
-  bandsIds: [String]
-  artistsIds: [String]
-  duration: Int
-  released: Int
-  genresIds: [String]
-}
-
-type RemoveTrack {
-  acknowledged: String!
-  deletedCount: Int!
-}
-
-type Genre {
-  _id: ID!
-  name: String!
-  description: String
-  country: String
-  year: String
-}
-
-type RemoveGenre {
-  acknowledged: String!
-  deletedCount: Int!
-}
-
 type Members {
   artist: String
   instrument: String
@@ -75,11 +28,34 @@ type Band {
   members: [Members]
   website: String
   genresIds: [String!]
+  genres: [Genre!]!
 }
 
-type RemoveBand {
+type Artist {
+  """ID of Artist"""
+  _id: ID!
+  firstName: String!
+  secondName: String!
+  middleName: String
+  birthDate: String
+  birthPlace: String
+  country: String!
+  bandsIds: [String]
+  bands: [Band!]!
+  instruments: [String]
+}
+
+type RemoveArtist {
   acknowledged: String!
   deletedCount: Int!
+}
+
+type Genre {
+  _id: ID!
+  name: String!
+  description: String
+  country: String
+  year: String
 }
 
 type Album {
@@ -87,10 +63,45 @@ type Album {
   name: String!
   released: String
   artistsIds: [String]
+  artists: [Artist!]!
   bandsIds: [String]
+  bands: [Band!]!
   trackIds: [String]
+  track: [Track]
   genresIds: [String]
+  genres: [Genre!]!
   image: String
+  tracks: [Track!]!
+}
+
+type Track {
+  _id: String!
+  title: String!
+  albumId: String
+  album: Album!
+  bandsIds: [String]
+  bands: [Band!]!
+  artistsIds: [String]
+  artists: [Artist!]!
+  duration: Int
+  released: Int
+  genresIds: [String]
+  genres: [Genre!]!
+}
+
+type RemoveTrack {
+  acknowledged: String!
+  deletedCount: Int!
+}
+
+type RemoveGenre {
+  acknowledged: String!
+  deletedCount: Int!
+}
+
+type RemoveBand {
+  acknowledged: String!
+  deletedCount: Int!
 }
 
 type RemoveAlbum {
@@ -102,9 +113,13 @@ type Favourite {
   _id: ID!
   userId: String!
   bandsIds: [String]
+  bands: [Band!]!
   genresIds: [String]
+  genres: [Genre!]!
   artistsIds: [String]
+  artists: [Artist!]!
   tracksIds: [String]
+  tracks: [Track!]!
 }
 
 type RemoveFavourite {
@@ -240,7 +255,7 @@ input UpdateBandInput {
   origin: String
   members: [MembersInput]
   website: String
-  genresIds: [String!]
+  genresIds: [String]
 }
 
 input CreateAlbumInput {

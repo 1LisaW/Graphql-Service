@@ -3,11 +3,41 @@
 
 ##################
 mutation createTrack
-
+mutation($createTrackInput: CreateTrackInput!){
+  createTrack(createTrackInput:$createTrackInput){
+    _id
+    title
+    album{
+      name
+    }
+    artists{
+      _id
+      firstName
+    }
+    bands{
+      name
+      origin
+    }
+    duration
+    released
+    genres{
+      name
+    }
+  }
+}
 
 
 QUERY VARIABLES:
 
+{ "createTrackInput": {
+  "title": "Track2",
+  "albumId": "62ca9795bb91731855f98893",
+  "artistsIds": ["62c9c95bf51eeab1327a19df"],
+  "bandsIds": ["62ca099317090bdb7f6f65e7"],
+  "duration": 2,
+  "released": 3,
+  "genresIds": ["62c9d80ef7df0637a9d4f434"]
+}}
 
 HTTP HEADERS:
 {"authorization":"Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM4NGRhZjQyN2M5MmJhMjg0ZjA5NjIiLCJmaXJzdE5hbWUiOiJmaXJzdCBuYW1lIiwibGFzdE5hbWUiOiJsYXN0IG5hbWUiLCJlbWFpbCI6Im1ldDkxMjlAZ21haWwuY29tIiwiaWF0IjoxNjU3MzY5ODk0fQ.cbI06bmBitvzHaohRWwPhC_J486fD-ri5ZAC5h66wPc"}
@@ -18,11 +48,24 @@ QUERY VARIABLES:
 
 query{
   tracks{
-    _id,
-     title,
-    albumId,
-    artistsIds,
+     _id
+    title
+    album{
+      name
+    }
+    artists{
+      _id
+      firstName
+    }
+    bands{
+      name
+      origin
+    }
     duration
+    released
+    genres{
+      name
+    }
   }
 }
 
@@ -34,12 +77,25 @@ track
 
 query{
   track(id:"62cab23f1ff6e11e8d441180"){
-    _id,
-     title,
-    albumId,
-    artistsIds,
+    _id
+    title
+    album{
+      name
+    }
+    artists{
+      _id
+      firstName
+    }
+    bands{
+      name
+      origin
+    }
     duration
-  }
+    released
+    genres{
+      name
+    }
+	}
 }
 
 QUERY VARIABLES:

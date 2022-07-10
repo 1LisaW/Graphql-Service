@@ -6,44 +6,96 @@ mutation createFavourite
 
 mutation($createFavouriteInput: CreateFavouriteInput!){
   addBandToFavourites(createFavouriteInput:$createFavouriteInput){
-    artistsIds
-    bandsIds
-    genresIds
-    artistsIds
-    tracksIds
+    bands{
+      name
+    }
+    genres{
+      name
+    }
+    artists{
+      _id
+      firstName
+    }
+    tracks{
+      bands{
+        name
+      }
+      genres{
+        name
+      }
+    }
     _id
   }
 }
 
 mutation($createFavouriteInput: CreateFavouriteInput!){
   addTrackToFavourites(createFavouriteInput:$createFavouriteInput){
-    artistsIds
-    bandsIds
-    genresIds
-    artistsIds
-    tracksIds
+    bands{
+      name
+    }
+    genres{
+      name
+    }
+    artists{
+      _id
+      firstName
+    }
+    tracks{
+      bands{
+        name
+      }
+      genres{
+        name
+      }
+    }
     _id
   }
 }
 
 mutation($createFavouriteInput: CreateFavouriteInput!){
   addGenreToFavourites(createFavouriteInput:$createFavouriteInput){
-    artistsIds
-    bandsIds
-    genresIds
-    artistsIds
-    tracksIds
+    bands{
+      name
+    }
+    genres{
+      name
+    }
+    artists{
+      _id
+      firstName
+    }
+    tracks{
+      bands{
+        name
+      }
+      genres{
+        name
+      }
+    }
     _id
   }
 }
 
 mutation($createFavouriteInput: CreateFavouriteInput!){
   addArtistToFavourites(createFavouriteInput:$createFavouriteInput){
-    artistsIds
-    bandsIds
-    genresIds
-    artistsIds
-    tracksIds
+    bands{
+      name
+    }
+    genres{
+      name
+    }
+    artists{
+      _id
+      firstName
+    }
+    tracks{
+      bands{
+        name
+      }
+      genres{
+        name
+      }
+    }
     _id
   }
 }
@@ -63,11 +115,24 @@ favourites:
 
 query{
   favourites{
-    artistsIds
-    bandsIds
-    genresIds
-    artistsIds
-    tracksIds
+    bands{
+      name
+    }
+    genres{
+      name
+    }
+    artists{
+      _id
+      firstName
+    }
+    tracks{
+      bands{
+        name
+      }
+      genres{
+        name
+      }
+    }
     _id
   }
 }

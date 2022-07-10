@@ -30,6 +30,6 @@ export class UpdateBandInput extends PartialType(CreateBandInput) {
   @Field(() => String, { nullable: true })
   website: string;
 
-  @Field(() => [String], { nullable: true })
+  @Field(() => [String], { nullable: 'itemsAndList' })
   genresIds: string[];
 }

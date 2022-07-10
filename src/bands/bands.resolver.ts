@@ -1,14 +1,27 @@
-import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Context,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { BandsService } from './bands.service';
 import { Band } from './entities/band.entity';
 import { CreateBandInput } from './dto/create-band.input';
 import { UpdateBandInput } from './dto/update-band.input';
 import { ContextType } from '@nestjs/common';
 import { RemoveBand } from './entities/remove.entity';
+import { Genre } from 'src/genres/entities/genre.entity';
+import { GenresService } from 'src/genres/genres.service';
 
 @Resolver(() => Band)
 export class BandsResolver {
-  constructor(private readonly bandsService: BandsService) {}
+  constructor(
+    private readonly bandsService: BandsService,
+    private readonly genresService: GenresService,
+  ) {}
 
   @Mutation(() => Band)
   createBand(
@@ -47,5 +60,19 @@ export class BandsResolver {
     context: ContextType & { token: string },
   ) {
     return this.bandsService.remove(id, context.token);
+  }
+
+  @ResolveField('genres', () => [Genre])
+  async resolveBands(@Parent() parent: Band) {
+    const { genresIds } = parent;
+    const genres = [];
+
+    for (const id of genresIds) {
+      const genre = await this.genresService.findOne(id);
+      if (genre) genres.push(genre);
+    }
+
+    console.log('?', genresIds, genres);
+    return genres;
   }
 }

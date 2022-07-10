@@ -13,7 +13,9 @@ mutation($createArtistInput: CreateArtistInput!) {
     birthDate
     birthPlace
     country
-    bandsIds
+    bands{
+      name
+    }
     instruments
   }
 }
@@ -45,7 +47,9 @@ query{
     birthDate
     birthPlace
     country
-    bandsIds
+    bands{
+      name
+    }
     instruments
   }
 }
@@ -67,7 +71,9 @@ query{
     birthDate
     birthPlace
     country
-    bandsIds
+    bands{
+      name
+    }
     instruments
   }
 }

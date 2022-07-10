@@ -8,9 +8,13 @@ mutation($createAlbumInput: CreateAlbumInput!){
   createAlbum(createAlbumInput: $createAlbumInput){
     _id
     name
-    bandsIds
-    trackIds
-    genresIds
+    bands{
+      name
+    }
+    track{
+      title
+    }
+    genres{ name}
     released
 
   }
@@ -35,9 +39,13 @@ query{
   albums{
     _id
     name
-    bandsIds
-    trackIds
-    genresIds
+    bands{
+      name
+    }
+    track{
+      title
+    }
+    genres{ name}
     released
   }
 }
@@ -52,11 +60,15 @@ album:
 
 query($id: String!){
   album(id: $id){
-    _id
+   _id
     name
-    bandsIds
-    trackIds
-    genresIds
+    bands{
+      name
+    }
+    track{
+      title
+    }
+    genres{ name}
     released
   }
 }
@@ -76,9 +88,13 @@ mutation( $updateAlbumInput: UpdateAlbumInput!){
     updateAlbumInput:$updateAlbumInput){
     _id
     name
-    bandsIds
-    trackIds
-    genresIds
+    bands{
+      name
+    }
+    track{
+      title
+    }
+    genres{ name}
     released
   }
 }

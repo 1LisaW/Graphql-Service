@@ -6,10 +6,15 @@ mutation createBand:
 
 mutation($createBandInput: CreateBandInput!){
   createBand(createBandInput: $createBandInput){
+    _id
     name
     origin
+    genres{
+      name
+      country
+    }
     members{
-       artist
+      artist
       years
     }
   }
@@ -19,6 +24,7 @@ QUERY VARIABLES:
 
 {"createBandInput":{
   "name": "Band1",
+  "genresIds": ["62c9cf63f7df0637a9d4f420"],
   "members": {
     "artist": "John Snow",
     "instrument": "Bass",
@@ -37,6 +43,10 @@ query{
     _id
     name
     origin
+    genres{
+      name
+      country
+    }
     members{
       artist
       years
@@ -57,7 +67,10 @@ query{
   band(id:"62ca099317090bdb7f6f65e7"){
     name
     origin
-    genresIds
+    genres{
+      name
+      country
+    }
     members{
 
       artist
@@ -79,6 +92,10 @@ mutation($updateBandInput: UpdateBandInput!){
   updateBand(id:"62ca099317090bdb7f6f65e7", updateBandInput: $updateBandInput){
     name
     origin
+    genres{
+      name
+      country
+    }
     members{
       artist
     }
