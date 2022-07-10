@@ -4,6 +4,7 @@ import { Genre } from './entities/genre.entity';
 import { CreateGenreInput } from './dto/create-genre.input';
 import { UpdateGenreInput } from './dto/update-genre.input';
 import { ContextType } from '@nestjs/common';
+import { RemoveGenre } from './entities/remove.entity';
 
 @Resolver(() => Genre)
 export class GenresResolver {
@@ -38,8 +39,12 @@ export class GenresResolver {
     return this.genresService.update(id, updateGenreInput, context.token);
   }
 
-  @Mutation(() => Genre)
-  removeGenre(@Args('id', { type: () => String }) id: string) {
-    return this.genresService.remove(id);
+  @Mutation(() => RemoveGenre)
+  removeGenre(
+    @Args('id', { type: () => String }) id: string,
+    @Context()
+    context: ContextType & { token: string },
+  ) {
+    return this.genresService.remove(id, context.token);
   }
 }

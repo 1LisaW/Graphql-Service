@@ -4,6 +4,7 @@ import axios, { AxiosInstance } from 'axios';
 import { CreateAlbumInput } from './dto/create-album.input';
 import { UpdateAlbumInput } from './dto/update-album.input';
 import { Album } from './entities/album.entity';
+import { RemoveAlbum } from './entities/remove.entity';
 
 @Injectable()
 export class AlbumsService {
@@ -67,7 +68,16 @@ export class AlbumsService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} album`;
+  async remove(id: string, token): Promise<RemoveAlbum> {
+    try {
+      const res = await this.client.delete(`/${id}`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

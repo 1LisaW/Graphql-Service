@@ -4,6 +4,7 @@ import { UpdateArtistInput } from './dto/update-artist.input';
 import { ConfigService } from '@nestjs/config';
 import axios, { AxiosInstance } from 'axios';
 import { Artist } from './entities/artist.entity';
+import { RemoveArtist } from './entities/remove.entity';
 
 @Injectable()
 export class ArtistsService {
@@ -68,7 +69,16 @@ export class ArtistsService {
     }
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} artist`;
+  async remove(id: string, token): Promise<RemoveArtist> {
+    try {
+      const res = await this.client.delete(`/${id}`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

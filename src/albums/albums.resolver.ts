@@ -4,6 +4,7 @@ import { Album } from './entities/album.entity';
 import { CreateAlbumInput } from './dto/create-album.input';
 import { UpdateAlbumInput } from './dto/update-album.input';
 import { ContextType } from '@nestjs/common';
+import { RemoveAlbum } from './entities/remove.entity';
 
 @Resolver(() => Album)
 export class AlbumsResolver {
@@ -36,8 +37,12 @@ export class AlbumsResolver {
     return this.albumsService.update(id, updateAlbumInput, context.token);
   }
 
-  @Mutation(() => Album)
-  removeAlbum(@Args('id', { type: () => Int }) id: number) {
-    return this.albumsService.remove(id);
+  @Mutation(() => RemoveAlbum)
+  removeAlbum(
+    @Args('id', { type: () => String }) id: string,
+    @Context()
+    context: ContextType & { token: string },
+  ) {
+    return this.albumsService.remove(id, context.token);
   }
 }

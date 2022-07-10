@@ -4,6 +4,7 @@ import axios, { AxiosInstance } from 'axios';
 import { CreateGenreInput } from './dto/create-genre.input';
 import { UpdateGenreInput } from './dto/update-genre.input';
 import { Genre } from './entities/genre.entity';
+import { RemoveGenre } from './entities/remove.entity';
 
 @Injectable()
 export class GenresService {
@@ -63,7 +64,16 @@ export class GenresService {
     }
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} genre`;
+  async remove(id: string, token): Promise<RemoveGenre> {
+    try {
+      const res = await this.client.delete(`/${id}`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

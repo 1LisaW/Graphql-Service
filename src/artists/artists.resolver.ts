@@ -4,6 +4,7 @@ import { Artist } from './entities/artist.entity';
 import { CreateArtistInput } from './dto/create-artist.input';
 import { UpdateArtistInput } from './dto/update-artist.input';
 import { ContextType } from '@nestjs/common';
+import { RemoveArtist } from './entities/remove.entity';
 
 @Resolver(() => Artist)
 export class ArtistsResolver {
@@ -40,8 +41,12 @@ export class ArtistsResolver {
     return this.artistsService.update(id, updateArtistInput, context.token);
   }
 
-  @Mutation(() => Artist)
-  removeArtist(@Args('id', { type: () => String }) id: string) {
-    return this.artistsService.remove(id);
+  @Mutation(() => RemoveArtist)
+  removeArtist(
+    @Args('id', { type: () => String }) id: string,
+    @Context()
+    context: ContextType & { token: string },
+  ) {
+    return this.artistsService.remove(id, context.token);
   }
 }

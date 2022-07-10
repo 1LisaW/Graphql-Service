@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import axios, { AxiosInstance } from 'axios';
 import { CreateTrackInput } from './dto/create-track.input';
 import { UpdateTrackInput } from './dto/update-track.input';
+import { RemoveTrack } from './entities/remove.entity';
 import { Track } from './entities/track.entity';
 
 @Injectable()
@@ -61,7 +62,16 @@ export class TracksService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} track`;
+  async remove(id: string, token): Promise<RemoveTrack> {
+    try {
+      const res = await this.client.delete(`/${id}`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

@@ -4,6 +4,7 @@ import { Track } from './entities/track.entity';
 import { CreateTrackInput } from './dto/create-track.input';
 import { UpdateTrackInput } from './dto/update-track.input';
 import { ContextType } from '@nestjs/common';
+import { RemoveTrack } from './entities/remove.entity';
 
 @Resolver(() => Track)
 export class TracksResolver {
@@ -38,8 +39,12 @@ export class TracksResolver {
     return this.tracksService.update(id, updateTrackInput, context.token);
   }
 
-  @Mutation(() => Track)
-  removeTrack(@Args('id', { type: () => Int }) id: number) {
-    return this.tracksService.remove(id);
+  @Mutation(() => RemoveTrack)
+  removeTrack(
+    @Args('id', { type: () => String }) id: string,
+    @Context()
+    context: ContextType & { token: string },
+  ) {
+    return this.tracksService.remove(id, context.token);
   }
 }

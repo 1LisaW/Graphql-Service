@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios, { AxiosInstance } from 'axios';
+import { RemoveBand } from './entities/remove.entity';
 import { CreateBandInput } from './dto/create-band.input';
 import { UpdateBandInput } from './dto/update-band.input';
 import { Band } from './entities/band.entity';
@@ -60,7 +61,16 @@ export class BandsService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} band`;
+  async remove(id: string, token): Promise<RemoveBand> {
+    try {
+      const res = await this.client.delete(`/${id}`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

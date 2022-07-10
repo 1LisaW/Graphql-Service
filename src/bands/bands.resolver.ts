@@ -4,6 +4,7 @@ import { Band } from './entities/band.entity';
 import { CreateBandInput } from './dto/create-band.input';
 import { UpdateBandInput } from './dto/update-band.input';
 import { ContextType } from '@nestjs/common';
+import { RemoveBand } from './entities/remove.entity';
 
 @Resolver(() => Band)
 export class BandsResolver {
@@ -39,8 +40,12 @@ export class BandsResolver {
     return this.bandsService.update(id, updateBandInput, context.token);
   }
 
-  @Mutation(() => Band)
-  removeBand(@Args('id', { type: () => Int }) id: number) {
-    return this.bandsService.remove(id);
+  @Mutation(() => RemoveBand)
+  removeBand(
+    @Args('id', { type: () => String }) id: string,
+    @Context()
+    context: ContextType & { token: string },
+  ) {
+    return this.bandsService.remove(id, context.token);
   }
 }

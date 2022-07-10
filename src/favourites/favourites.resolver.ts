@@ -4,6 +4,7 @@ import { Favourite } from './entities/favourite.entity';
 import { CreateFavouriteInput } from './dto/create-favourite.input';
 import { RemoveFromFavouriteInput } from './dto/remove-from-favourite.input';
 import { ContextType } from '@nestjs/common';
+import { RemoveFavourite } from './entities/remove.entity';
 
 @Resolver(() => Favourite)
 export class FavouritesResolver {
@@ -37,8 +38,12 @@ export class FavouritesResolver {
   //   );
   // }
 
-  @Mutation(() => Favourite)
-  removeFavourite(@Args('id', { type: () => Int }) id: number) {
-    return this.favouritesService.remove(id);
+  @Mutation(() => RemoveFavourite)
+  removeFavourite(
+    @Args('id', { type: () => String }) id: string,
+    @Context()
+    context: ContextType & { token: string },
+  ) {
+    return this.favouritesService.remove(id, context.token);
   }
 }

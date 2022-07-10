@@ -4,6 +4,7 @@ import axios, { AxiosInstance } from 'axios';
 import { CreateFavouriteInput } from './dto/create-favourite.input';
 import { RemoveFromFavouriteInput } from './dto/remove-from-favourite.input';
 import { Favourite } from './entities/favourite.entity';
+import { RemoveFavourite } from './entities/remove.entity';
 
 @Injectable()
 export class FavouritesService {
@@ -48,7 +49,16 @@ export class FavouritesService {
   //   return `This action updates a #${id} favourite`;
   // }
 
-  remove(id: number) {
-    return `This action removes a #${id} favourite`;
+  async remove(id: string, token): Promise<RemoveFavourite> {
+    try {
+      const res = await this.client.delete(`/${id}`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
