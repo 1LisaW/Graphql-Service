@@ -5,9 +5,6 @@ export class User {
   @Field(() => ID, { description: 'ID of user', nullable: false })
   _id: string;
 
-  // @Field(() => Number)
-  // __v: number;
-
   @Field(() => String)
   firstName: string;
 

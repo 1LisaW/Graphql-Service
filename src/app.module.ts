@@ -6,6 +6,12 @@ import { UsersModule } from './users/users.module';
 import { UsersService } from './users/users.service';
 import { join } from 'path';
 import { configValidationSchema } from './config.schema';
+import { ArtistsModule } from './artists/artists.module';
+import { TracksModule } from './tracks/tracks.module';
+import { GenresModule } from './genres/genres.module';
+import { BandsModule } from './bands/bands.module';
+import { AlbumsModule } from './albums/albums.module';
+import { FavouritesModule } from './favourites/favourites.module';
 
 interface Request {
   req: {
@@ -32,7 +38,7 @@ interface Request {
       autoSchemaFile: join(process.cwd(), './schema.gql'),
       context: async ({ req }: Request) => {
         const token: string = req.headers.authorization || '';
-        console.log('app.modules', req.headers);
+        // console.log('app.modules', req.headers);
         return {
           token,
         };
@@ -41,6 +47,12 @@ interface Request {
       playground: true,
     }),
     UsersModule,
+    ArtistsModule,
+    TracksModule,
+    GenresModule,
+    BandsModule,
+    AlbumsModule,
+    FavouritesModule,
   ],
   controllers: [],
   providers: [UsersService],

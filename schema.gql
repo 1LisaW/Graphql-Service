@@ -15,14 +15,104 @@ type Jwt {
   jwt: String!
 }
 
+type Artist {
+  """ID of Artist"""
+  _id: ID!
+  firstName: String!
+  secondName: String!
+  middleName: String
+  birthDate: String
+  birthPlace: String
+  country: String!
+  bandsIds: [String]
+  instruments: [String]
+}
+
+type Track {
+  _id: String!
+  title: String!
+  albumId: String
+  bandsIds: [String]
+  artistsIds: [String]
+  duration: Int
+  released: Int
+  genresIds: [String]
+}
+
+type Genre {
+  _id: ID!
+  name: String!
+  description: String
+  country: String
+  year: String
+}
+
+type Members {
+  artist: String
+  instrument: String
+  years: [String]
+}
+
+type Band {
+  _id: String!
+  name: String!
+  origin: String
+  members: [Members]
+  website: String
+  genresIds: [String!]
+}
+
+type Album {
+  _id: String!
+  name: String!
+  released: String
+  artistsIds: [String]
+  bandsIds: [String]
+  trackIds: [String]
+  genresIds: [String]
+  image: String
+}
+
+type Favourite {
+  _id: ID!
+  userId: String!
+  bandsIds: [String]
+  genresIds: [String]
+  artistsIds: [String]
+  tracksIds: [String]
+}
+
 type Query {
   getUserById(id: String!): User!
-  verify: User!
+  artists: [Artist]
+  artist(id: String!): Artist!
+  tracks: [Track!]!
+  track(id: String!): Track!
+  genres: [Genre!]!
+  genre(id: String!): Genre!
+  bands: [Band!]!
+  band(id: String!): Band!
+  albums: [Album!]!
+  album(id: String!): Album!
+  favourites: Favourite!
 }
 
 type Mutation {
   register(createUserInput: CreateUserInput!): User!
   login(loginInput: LoginInput!): Jwt!
+  createArtist(createArtistInput: CreateArtistInput!): Artist!
+  updateArtist(id: String!, updateArtistInput: UpdateArtistInput!): Artist!
+  removeArtist(id: String!): Artist!
+  createTrack(createTrackInput: CreateTrackInput!): Track!
+  removeTrack(id: Int!): Track!
+  createGenre(createGenreInput: CreateGenreInput!): Genre!
+  removeGenre(id: String!): Genre!
+  createBand(createBandInput: CreateBandInput!): Band!
+  removeBand(id: Int!): Band!
+  createAlbum(createAlbumInput: CreateAlbumInput!): Album!
+  removeAlbum(id: Int!): Album!
+  createFavourite(createFavouriteInput: CreateFavouriteInput!): Favourite!
+  removeFavourite(id: Int!): Favourite!
 }
 
 input CreateUserInput {
@@ -36,4 +126,71 @@ input CreateUserInput {
 input LoginInput {
   email: String!
   password: String!
+}
+
+input CreateArtistInput {
+  firstName: String!
+  secondName: String!
+  middleName: String
+  birthDate: String
+  birthPlace: String
+  country: String
+  bandsIds: [String]
+  instruments: [String]
+}
+
+input UpdateArtistInput {
+  firstName: String
+  secondName: String
+  middleName: String
+  birthDate: String
+  birthPlace: String
+  country: String
+  bandsIds: [String]
+  instruments: [String]
+}
+
+input CreateTrackInput {
+  title: String!
+  albumId: String
+  bandsIds: [String]
+  artistsIds: [String]
+  duration: Int
+  released: Int
+  genresIds: [String]
+}
+
+input CreateGenreInput {
+  name: String!
+  description: String
+  country: String
+  year: Int
+}
+
+input CreateBandInput {
+  name: String!
+  origin: String
+  members: [MembersInput]
+  website: String
+  genresIds: [String!]
+}
+
+input MembersInput {
+  artist: String
+  instrument: String
+  years: [String]
+}
+
+input CreateAlbumInput {
+  name: String!
+  released: Int
+  artistsIds: [String]
+  bandsIds: [String]
+  trackIds: [String]
+  genresIds: [String]
+}
+
+input CreateFavouriteInput {
+  type: String
+  id: String
 }

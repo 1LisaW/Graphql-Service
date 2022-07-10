@@ -35,19 +35,7 @@ export class UserResolver {
   login(
     @Args('loginInput')
     loginInput: LoginInput,
-    // @Context()
-    // context: ContextType & { token: string },
   ) {
-    // console.log('context', context.token);
     return this.usersService.login(loginInput);
-  }
-
-  @Query(() => User)
-  verify(
-    @Context()
-    context: ContextType & { token: string },
-  ) {
-    console.log('token', context.token);
-    return this.usersService.verify(context.token);
   }
 }

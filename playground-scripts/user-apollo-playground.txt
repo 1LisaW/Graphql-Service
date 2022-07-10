@@ -1,0 +1,68 @@
+-----------------------------------------------------
+// Users
+
+##################
+mutation register:
+
+mutation($createUserInput: CreateUserInput!) {
+  register(createUserInput: $createUserInput) {
+    firstName
+    lastName
+    password
+    email
+    _id
+  }
+}
+
+QUERY VARIABLES:
+
+{"createUserInput": {
+    "firstName":"nameFirst",
+    "lastName":"last name",
+    "password":"1OO18649qweP",
+    "email": "met9129@gmail.com",
+    "favouriteArtistIds": ["62aef8e2cbabce5a0bdc0a26"]
+}}
+
+HTTP HEADERS:
+
+##################
+query getUserById:
+
+query($id: String!){
+  getUserById(id:$id){
+    firstName
+    lastName
+    password
+    email
+    _id
+  }
+}
+
+QUERY VARIABLES:
+
+{"id":"62c8a7a0427c92ba284f0995"}
+
+HTTP HEADERS:
+
+##################
+mutation login:
+
+mutation($loginInput: LoginInput!) {
+  login(loginInput: $loginInput) {
+    jwt
+  }
+}
+
+QUERY VARIABLES:
+
+{"loginInput":  {
+    "email": "met9129@gmail.com",
+    "password":"1OO18649qweP"
+ }
+}
+
+HTTP HEADERS:
+
+
+##################

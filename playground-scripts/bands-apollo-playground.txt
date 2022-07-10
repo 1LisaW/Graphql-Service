@@ -1,0 +1,75 @@
+-----------------------------------------------------
+// Bands
+
+##################
+mutation createBand:
+
+mutation($createBandInput: CreateBandInput!){
+  createBand(createBandInput: $createBandInput){
+    name
+    origin
+    members{
+       artist
+      years
+    }
+  }
+}
+
+QUERY VARIABLES:
+
+{"createBandInput":{
+  "name": "Band1",
+  "members": {
+    "artist": "John Snow",
+    "instrument": "Bass",
+    "years": ["1987"]
+  }
+}}
+
+HTTP HEADERS:
+{"authorization":"Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM4NGRhZjQyN2M5MmJhMjg0ZjA5NjIiLCJmaXJzdE5hbWUiOiJmaXJzdCBuYW1lIiwibGFzdE5hbWUiOiJsYXN0IG5hbWUiLCJlbWFpbCI6Im1ldDkxMjlAZ21haWwuY29tIiwiaWF0IjoxNjU3MzY5ODk0fQ.cbI06bmBitvzHaohRWwPhC_J486fD-ri5ZAC5h66wPc"}
+##################
+
+bands:
+
+query{
+  bands{
+    _id
+    name
+    origin
+    members{
+      artist
+      years
+       instrument
+    }
+  }
+}
+
+QUERY VARIABLES:
+
+HTTP HEADERS:
+
+##################
+
+band:
+
+query{
+  band(id:"62ca099317090bdb7f6f65e7"){
+    name
+    origin
+    genresIds
+    members{
+
+      artist
+      instrument
+    }
+    _id
+  }
+}
+
+QUERY VARIABLES:
+
+HTTP HEADERS:
+
+##################
+

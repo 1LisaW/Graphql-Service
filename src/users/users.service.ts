@@ -29,7 +29,6 @@ export class UsersService {
   async getUserById(id: string): Promise<User> {
     try {
       const res = await this.client.get(`/${id}`);
-      console.log('res', res.data);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -42,19 +41,6 @@ export class UsersService {
       return res.data;
     } catch (err) {
       console.log(err);
-    }
-  }
-
-  async verify(token: string): Promise<User | null> {
-    try {
-      const res = await this.client.get(`/verify`, {
-        headers: {
-          Authorization: `${token}`,
-        },
-      });
-      return res.data;
-    } catch (err) {
-      console.error(err);
     }
   }
 }
